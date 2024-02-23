@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pics</title>
+    <link rel ="stylesheet" tpye = "style/sheet" href ="style.css">
+
+</head>
+<body>
+
+    <ul class = "buttons">
+        <li> <a href ="map.html" >map</a></li>
+        <li> <a href ="index.html" >main</a></li>
+     </ul>
+     
+    <h4> Pictures Of Us</h4>
+
+    <label for ="input-file"></label>
+    <input type ='file' accept ='image/jpeg,image/png, image/jpg' id ="input-file">
+  
+    <div class="cards">
+  </div>
+  
+         
+
+    <script type ='text/javascript'> 
+
+
+    let inputFile = document.getElementById("input-file");
+
+    inputFile.addEventListener('change', async (event) => {
+        const file = inputFile.files[0];
+        const formData = new FormData();
+        formData.append('file', file);
+            
+        
+        const response = await fetch('/api',{
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        console.log('File uploaded successfully:', response);
+        addPicture(24,data.url)
+    });
+
+    //loads allthe pictures from the database
+    async function load(){
+
+        const response =  await fetch('/load',
+        {
+            method: 'POST',
+            body: "F"
+        });
+
+        const data = await response.json();
+
+        for(var i = 1; i < data.url.length; i ++)
+        {
+            addPicture(i, data.url[i])
+        }
+    }
+
+   load();
+
+   //add picture to the page
+   function addPicture(i, input){
+
+        //get the container elemenet where each picture will be appended
+        let card = document.getElementsByClassName("cards");
+
+        //create the needed elements for the picture
+        let flip_card=  document.createElement("div");
+        let flip_card_inner=  document.createElement("div");
+        let flip_card_front=  document.createElement("div");
+        let flip_card_back=  document.createElement("div");
+        let pic=  document.createElement("img");
+
+        //set the class names
+        flip_card.className = "flip-card";
+
+        flip_card_inner.className = "flip-card-inner";
+
+        flip_card_front.className = "flip-card-front";
+
+        flip_card_back.className = "flip-card-back";
+
+        //set the id
+        pic.id= `image${i}`;
+
+        //if the picutre is coming from elsewhere or from the pictures folder
+        if(input){
+            pic.src= input;
+        }else{
+        pic.src= `pictures/pic${i}.jpeg`;
+        }
+
+        //append the elements
+        flip_card.appendChild(flip_card_inner);
+        flip_card_inner.appendChild(flip_card_front);
+        flip_card_front.appendChild(pic);
+        flip_card_inner.appendChild(flip_card_back);
+        card[0].appendChild(flip_card);
+    }
+
+
+    </script>
+ 
+</body>
+</html>
