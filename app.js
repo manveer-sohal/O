@@ -23,26 +23,26 @@ const pool = mysql.createPool({
 
 
 //fetches image file url from pic.html, and puts the binary into database
-app.post('/api',  upload.single('file'),  (req,res) =>{
+app.post('/api',  upload.single('file'),  async(req,res) =>{
 
 
     const filePath = req.file.path;
     const fileData = fs.readFileSync(filePath);
     const fileText = req.body.text;
     //puts the photo into database
-    const result = pool.query('INSERT INTO photos (photoName, photoText, photoData) VALUES ("pic1", ?, ?)', [fileText, fileData]);
+    await pool.query('INSERT INTO photos (photoName, photoText, photoData) VALUES ("pic1", ?, ?)', [fileText, fileData]);
    
     //gets the data back, temp code
-    /*
+    
     try{
-    const results =  pool.query('SELECT photoData FROM photos WHERE id = 9')
+    const results =  pool.query('SELECT * FROM photos WHERE photoText = ?',[fileText])
     .then(results => {
-
             if(results && results.length > 0){
                 const imageData = results[0][0].photoData.toString('base64')
                 const imageUrl = `data:image/jpeg;base64,${imageData}`;
                 res.json({
-                    url:imageUrl
+                    url:imageUrl,
+                    text:fileText
                 }
                     );
             }
@@ -54,7 +54,7 @@ app.post('/api',  upload.single('file'),  (req,res) =>{
             console.error('Error retrieving photo from database:', error);
             res.status(500).send('Error retrieving photo from database');
         }       
-   */
+   
     });
 
 
