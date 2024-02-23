@@ -134,8 +134,40 @@ h4 {
   background-color: rgb(38, 178, 178);
 }
   
+h1{
+  color: black;
+}
 p {
     font-family: verdana;
     font-size: 20px;
   }
 
+#input-file{
+  visibility:hidden;
+}
+
+#input-file-label,#submit-form{
+  background-color: antiquewhite;
+  padding: 2vh;
+  border: 1px solid #bbb;
+  text-decoration: none;
+  color: white;
+  position: relative;
+}
+
+#input-file-label:hover, #submit-form:hover{
+background-color: rgb(154, 142, 126);
+padding: 2vh;
+border: 1px solid #bbb;
+text-decoration: none;
+color: white;
+position: relative;
+
+}
+#input-text{
+  position: relative;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}

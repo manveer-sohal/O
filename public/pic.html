@@ -15,10 +15,16 @@
      </ul>
      
     <h4> Pictures Of Us</h4>
+    <div class ="image-submit">
 
-    <label for ="input-file"></label>
+    <label for ="input-file" id = "input-file-label">Click Me To Add picture </label>
+    <button id ="submit-form"> Submit</button>
+</div>
     <input type ='file' accept ='image/jpeg,image/png, image/jpg' id ="input-file">
-  
+    
+    <input tpye="text" id ="input-text">
+
+
     <div class="cards">
   </div>
   
@@ -26,9 +32,49 @@
 
     <script type ='text/javascript'> 
 
+let submitForm = document.getElementById("submit-form");
+let input_text= document.getElementById("input-text");
+let inputFile = document.getElementById("input-file");
 
-    let inputFile = document.getElementById("input-file");
+submitForm.addEventListener('click', (event) => {
+    if(input_text.value != "" && inputFile.value != ""){
+      console.log("submit");
+      const file = inputFile.files[0];
 
+      sendData(input_text.value,file);
+
+    } else {
+
+        if(input_text.value == "") {
+        console.log("Enter Text Please");
+    } 
+    if(inputFile.value == "") {
+        console.log("Enter File Please");
+    }
+    }
+    
+    });
+
+
+    async function sendData(inputText, file){
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('text', inputText);
+
+        
+        const response = await fetch('/api',{
+            method: 'POST',
+          
+            body: formData
+        });
+
+        const data = await response.json();
+        console.log('File uploaded successfully:', data);
+        addPicture(24,data.url, data.text)
+
+    }
+
+    /*
     inputFile.addEventListener('change', async (event) => {
         const file = inputFile.files[0];
         const formData = new FormData();
@@ -46,7 +92,7 @@
         console.log('File uploaded successfully:', response);
         addPicture(24,data.url)
     });
-
+*/
     //loads all the pictures from the database
     async function load(){
 
@@ -60,15 +106,13 @@
 
         for(var i = 1; i < data.url.length; i ++)
         {
-            addPicture(i, data.url[i])
+            addPicture(i, data.url[i], data.text[i])
         }
     }
 
-   load();
-
    //add picture to the page
-   function addPicture(i, input){
-
+   function addPicture(i, input, text){
+    console.log(text);
         //get the container elemenet where each picture will be appended
         let card = document.getElementsByClassName("cards");
 
@@ -78,6 +122,8 @@
         let flip_card_front=  document.createElement("div");
         let flip_card_back=  document.createElement("div");
         let pic=  document.createElement("img");
+        let card_text=  document.createElement("h1");
+
 
         //set the class names
         flip_card.className = "flip-card";
@@ -87,7 +133,7 @@
         flip_card_front.className = "flip-card-front";
 
         flip_card_back.className = "flip-card-back";
-
+        card_text.innerHTML = text;
         //set the id
         pic.id= `image${i}`;
 
@@ -103,8 +149,13 @@
         flip_card_inner.appendChild(flip_card_front);
         flip_card_front.appendChild(pic);
         flip_card_inner.appendChild(flip_card_back);
+        flip_card_back.appendChild(card_text);
+
         card[0].appendChild(flip_card);
     }
+
+
+    load();
 
 
     </script>
