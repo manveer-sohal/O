@@ -42,7 +42,6 @@ submitForm.addEventListener('click', (event) => {
       const file = inputFile.files[0];
 
       sendData(input_text.value,file);
-
     } else {
 
         if(input_text.value == "") {
@@ -64,10 +63,8 @@ submitForm.addEventListener('click', (event) => {
         
         const response = await fetch('/api',{
             method: 'POST',
-          
             body: formData
         });
-
         const data = await response.json();
         console.log('File uploaded successfully:', data);
         addPicture(24,data.url, data.text)
@@ -96,6 +93,7 @@ submitForm.addEventListener('click', (event) => {
     //loads all the pictures from the database
     async function load(){
 
+        console.log("loading..");
         const response =  await fetch('/load',
         {
             method: 'POST',
@@ -103,16 +101,17 @@ submitForm.addEventListener('click', (event) => {
         });
 
         const data = await response.json();
+        if(data.url.length > 0){
 
-        for(var i = 1; i < data.url.length; i ++)
+        for(var i = 0; i <data.url.length; i ++)
         {
             addPicture(i, data.url[i], data.text[i])
         }
     }
+    }
 
    //add picture to the page
    function addPicture(i, input, text){
-    console.log(text);
         //get the container elemenet where each picture will be appended
         let card = document.getElementsByClassName("cards");
 
