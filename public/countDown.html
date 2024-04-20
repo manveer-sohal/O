@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Count Down</title>
+    <link rel ="stylesheet" tpye = "style/sheet" href ="style.css">
+
+</head>
+<body>
+    <h1>Milestone Count Down's </h1>
+    <a href ="index.html" >Main</a>
+    <a href ="pic.html" >Pics</a>
+    <a href ="map.html" >Map</a>
+
+    <p class = "Holiday", id="OneYear">Time till Anniversay</p>
+    <p id="OneYear-time"></p>
+
+    <p class = "Holiday", id="sixth-month">Time Till Next Sixth Month</p>
+    <p id="sixth-month-time"></p>
+
+    <p class = "Holiday", id="valentines">Time till Valentines Day</p>
+    <p id="valentines-time"></p>
+
+    <script type="module">
+
+        import confetti from 'https://cdn.skypack.dev/canvas-confetti';
+        let holiday_text = document.querySelectorAll(".Holiday");
+    holiday_text.forEach(holiday_text => {
+        holiday_text.addEventListener('click', (event) => {
+        confetti();
+    });
+});
+      </script>
+
+    <script type ='text/javascript'>
+    
+
+        // Set the date we're counting down to
+        function timeCalculation(distance){
+             // Time calculations for days, hours, minutes and seconds
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          return [days,hours,minutes,seconds] ;
+        }
+
+
+        //=====updates the one year=======
+        const date = new Date();
+        let day = date.getDate();
+        let month = date.getMonth() + 1;
+        let year = date.getFullYear();
+
+        // This arrangement can be altered based on how we want the date's format to appear.
+        let currentDate = `${year}/${month}/${day}`;
+        let anniversay = "2024/03/07";
+        let anniversay_end = "2024/03/08";
+
+        if(anniversay_end <= currentDate){
+          anniversay ="2025"+anniversay.slice(4,10);
+          
+        }
+        //=================================
+
+
+        
+
+    function sixth_month(){
+        var countDownDate = new Date("Sep 17, 2024 15:37:25").getTime();
+        
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+        
+          // Get today's date and time
+          var now = new Date().getTime();
+        
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+          var array = timeCalculation(distance);
+          var days = array[0];
+          var hours = array[1];
+          var minutes = array[2];
+          var seconds = array[3];
+        
+          // Display the result in the element with id="demo"
+          document.getElementById("sixth-month-time").innerHTML = days + "d " + hours + "h "
+          + minutes + "m " + seconds + "s ";
+        
+          // If the count down is finished, write some text 
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("sixth-month-time").innerHTML = "EXPIRED";
+          }
+        }, 1000);
+    }
+
+    function oneYear(){
+        var countDownDate = new Date(`${anniversay}`).getTime();
+        
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+        
+          // Get today's date and time
+          var now = new Date().getTime();
+        
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+          var array = timeCalculation(distance);
+          var days = array[0];
+          var hours = array[1];
+          var minutes = array[2];
+          var seconds = array[3];
+        
+          // Display the result in the element with id="demo"
+          document.getElementById("OneYear-time").innerHTML = days + "d " + hours + "h "
+          + minutes + "m " + seconds + "s ";
+        
+          // If the count down is finished, write some text 
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("OneYear-time").innerHTML = "EXPIRED";
+          }
+        }, 1000);
+    }
+
+    function Valentines(){
+        var countDownDate = new Date("Feb 14, 2025 15:37:25").getTime();
+        
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+        
+          // Get today's date and time
+          var now = new Date().getTime();
+        
+          // Find the distance between now and the count down date
+          var distance = countDownDate - now;
+          var array = timeCalculation(distance);
+          var days = array[0];
+          var hours = array[1];
+          var minutes = array[2];
+          var seconds = array[3];
+        
+          // Display the result in the element with id="demo"
+          document.getElementById("valentines-time").innerHTML = days + "d " + hours + "h "
+          + minutes + "m " + seconds + "s ";
+        
+          // If the count down is finished, write some text 
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("valentines-time").innerHTML = "EXPIRED";
+          }
+        }, 1000);
+    }
+
+    oneYear();
+    sixth_month();
+    Valentines();
+        </script>
+
+</body>
+</html>

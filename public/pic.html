@@ -10,19 +10,24 @@
 <body>
 
     <ul class = "buttons">
-        <li> <a href ="map.html" >map</a></li>
-        <li> <a href ="index.html" >main</a></li>
+        <li class = "button-list"> <a href ="map.html" >map</a></li>
+        <li class = "button-list" > <a href ="index.html" >main</a></li>
+        <li class = "button-list"><a href ="countDown.html" >CountDown</a></li>
      </ul>
-     
-    <h4> Pictures Of Us</h4>
-    <div class ="image-submit">
+    <div id = "status", position ="fixed", font-size= "24px"> </div>
 
+    <h4> Pictures Of Us</h4>
+    <button id ="add-pic",  onclick="submitPage()"> Add pic</button> 
+    <button id ="go-back",  onclick="UnsubmitPage()"> Go Back</button>
+
+
+ <div class ="image-submit">
     <label for ="input-file" id = "input-file-label">Click Me To Add picture </label>
-    <button id ="submit-form"> Submit</button>
-</div>
-    <input type ='file' accept ='image/jpeg,image/png, image/jpg' id ="input-file">
-    
+    <button id ="submit-form",  onclick="UnsubmitPage()"> Submit</button>
     <input tpye="text" id ="input-text">
+
+    <input type ='file' accept ='image/jpeg,image/png, image/jpg' id ="input-file"/>
+</div>
 
 
     <div class="cards">
@@ -31,27 +36,35 @@
          
 
     <script type ='text/javascript'> 
+    
 
-let submitForm = document.getElementById("submit-form");
-let input_text= document.getElementById("input-text");
-let inputFile = document.getElementById("input-file");
+    let image_count = 0;
 
-submitForm.addEventListener('click', (event) => {
-    if(input_text.value != "" && inputFile.value != ""){
+    let submitForm = document.getElementById("submit-form");
+    let input_text= document.getElementById("input-text");
+    let inputFile = document.getElementById("input-file");
+
+function checkSubmission(text){
+    if(text != "" && text != ""){
+
       console.log("submit");
       const file = inputFile.files[0];
 
-      sendData(input_text.value,file);
+      sendData(text,file);
+
     } else {
 
-        if(input_text.value == "") {
+        if(text == "") {
         console.log("Enter Text Please");
     } 
-    if(inputFile.value == "") {
+    if(text == "") {
         console.log("Enter File Please");
     }
     }
-    
+}
+
+submitForm.addEventListener('click', (event) => {
+     checkSubmission(input_text.value)
     });
 
 
@@ -68,6 +81,8 @@ submitForm.addEventListener('click', (event) => {
         const data = await response.json();
         console.log('File uploaded successfully:', data);
         addPicture(24,data.url, data.text)
+        console.log('data url:', data.url);
+
 
     }
 
@@ -90,6 +105,7 @@ submitForm.addEventListener('click', (event) => {
         addPicture(24,data.url)
     });
 */
+
     //loads all the pictures from the database
     async function load(){
 
@@ -102,9 +118,16 @@ submitForm.addEventListener('click', (event) => {
 
         const data = await response.json();
         if(data.url.length > 0){
+        var images = image_count + 10;
+        if(images > data.url.length){
+            images = data.url.length; 
+        }
+        console.log(data.url.length);
 
         for(var i = 0; i <data.url.length; i ++)
         {
+
+            image_count+=1;
             addPicture(i, data.url[i], data.text[i])
         }
     }
@@ -112,6 +135,7 @@ submitForm.addEventListener('click', (event) => {
 
    //add picture to the page
    function addPicture(i, input, text){
+
         //get the container elemenet where each picture will be appended
         let card = document.getElementsByClassName("cards");
 
@@ -122,7 +146,6 @@ submitForm.addEventListener('click', (event) => {
         let flip_card_back=  document.createElement("div");
         let pic=  document.createElement("img");
         let card_text=  document.createElement("h1");
-
 
         //set the class names
         flip_card.className = "flip-card";
@@ -142,17 +165,54 @@ submitForm.addEventListener('click', (event) => {
         }else{
         pic.src= `pictures/pic${i}.jpeg`;
         }
-
+        pic.loading ='lazy';
         //append the elements
         flip_card.appendChild(flip_card_inner);
         flip_card_inner.appendChild(flip_card_front);
         flip_card_front.appendChild(pic);
         flip_card_inner.appendChild(flip_card_back);
         flip_card_back.appendChild(card_text);
-
         card[0].appendChild(flip_card);
+        var height = pic.clientHeight;
+        flip_card_inner.style.height=`${height}px`;
+
     }
 
+
+    function submitPage(){
+        document.getElementById("go-back").style.display = "block"
+       let button= document.getElementById("add-pic"); 
+       button.style.display = "none"
+        console.log(button);
+        let submit_pic = document.getElementsByClassName("image-submit")[0];
+        submit_pic.style.visibility = "visible"; 
+        submit_pic.style.position = "relative";
+
+       let card =  document.getElementsByClassName("cards")[0];
+       card.style.display="none";
+       card.style.position = "absolute";
+       
+        console.log("invisbleeee")
+
+    }
+
+    function UnsubmitPage(){
+        document.getElementById("go-back").style.display = "none"
+        let button= document.getElementById("add-pic"); 
+        button.style.display = "block"
+
+        let submit_pic = document.getElementsByClassName("image-submit")[0];
+        submit_pic.style.visibility = "hidden"; 
+        submit_pic.style.position = "absolute";
+
+        let card = document.getElementsByClassName("cards");
+        card[0].style.display="flex";
+        card.style.position = "relative";
+        document.getElementById("input-text").style.innerHTML = "";
+
+
+
+    }
 
     load();
 

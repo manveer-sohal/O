@@ -1,5 +1,8 @@
+/*floralwhite
+rgb(38, 178, 178);
+*/
 body {
-    background-color: floralwhite;
+    background-color: antiquewhite;
     position: relative;
 
   }
@@ -10,11 +13,44 @@ body {
   font-family: myFont;
   src: url(ChristmasTogether-Demo.ttf);
 }
+@font-face {
+  font-family: letter;
+  src: url(LovelyKids.ttf);
+}
 head{
   background-color: yellow;
 }
 
+#start{
+  display: none; 
+  padding: 10px 20px; /* Adjust padding for better proportion */
+  margin: 5px; /* Add margin for spacing between elements */
+  border: 1px solid #bbb;
+  border-radius: 4px; /* Add rounded corners */
+  background-color: rgb(255, 255, 255);
+  color: black;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer; /* Change cursor on hover to indicate interactivity */
+  /*transition: background-color 0.3s, color 0.3s; /* Add smooth transition effect */
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  box-shadow:
+    0 0 7px #fff,
+    0 0 1px #fff,
+    0 0 21px #fff,
+    0 0 20px rgb(251, 0, 255),
+    0 0 82px rgb(251, 0, 255),
+    0 0 92px rgb(251, 0, 255),
+    0 0 102px #0fa,
+    0 0 151px #0fa;
 
+
+}
 ul {
   background-color: rgba(0, 0, 0, 0.288);
   list-style: none;
@@ -28,28 +64,32 @@ ul {
 
 ul li{
   display:inline-block;
+  list-style: none;
+
 }
 
+
 a{
-  background-color: antiquewhite;
-  padding: 2vh;
+  display: inline-block; /* Ensures elements are displayed inline */
+  padding: 10px 20px; /* Adjust padding for better proportion */
+  margin: 5px; /* Add margin for spacing between elements */
   border: 1px solid #bbb;
-  text-decoration: none;
+  border-radius: 4px; /* Add rounded corners */
+  background-color: rgb(207, 182, 149);
   color: white;
-  position: relative;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer; /* Change cursor on hover to indicate interactivity */
+  /*transition: background-color 0.3s, color 0.3s; /* Add smooth transition effect */
 }
 a:hover{
-  background-color: rgb(154, 142, 126);
-  padding: 2vh;
-  border: 1px solid #bbb;
-  text-decoration: none;
-  color: white;
-  position: relative;
+  background-color: rgb(154, 142, 126); /* Change background color on hover */
+  color: white; /* Ensure text color remains white on hover */
 }
 
 
 h4 {
-    background-color: rgb(38, 178, 178);
+    background-color: rgb(55, 87, 146);
     font-family: myFont;
     color: white;
     text-align: center;
@@ -59,9 +99,226 @@ h4 {
     position: relative;
   }
 
-.cards{
+  h5 {
+    cursor: pointer;
+    font-family: myFont;
+    text-align: center;
+    font-size: 10vh;
+    top: -13vh;
+    z-index: 1;
+    position: relative;
+    color: #fff;
+  text-shadow:
+    0 0 7px #fff,
+    0 0 1px #fff,
+    0 0 21px #fff,
+    0 0 20px rgb(251, 0, 255),
+    0 0 82px rgb(251, 0, 255),
+    0 0 92px rgb(251, 0, 255),
+    0 0 102px #0fa,
+    0 0 151px #0fa;
+  }
+  
+  h5:hover {
+    text-shadow:
+    0 0 7px #fff,
+    0 0 1px #fff,
+    0 0 21px #fff,
+    0 0 20px rgb(251, 0, 255),
+    0 0 192px rgb(251, 0, 255),
+    0 0 132px rgb(251, 0, 255),
+    0 0 142px #0fa,
+    0 0 191px #0fa;
+  }
+.image-submit{
+  border-radius: 4px; /* Add rounded corners */
+  visibility:hidden;
   flex-direction: row;
-  background-color:rgb(206, 217, 226);
+  background-color:rgb(206, 217, 226);;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  position: absolute;
+  margin-left:auto;
+  margin-right:auto;
+  width:23pc;
+  height: 30.8pc;
+
+}
+
+.container{
+  position: relative;
+  background-color: transparent;
+  display:none;
+  margin-left:auto;
+  margin-right:auto;
+  width:500px;
+  height: 600px;
+  justify-content:left;
+  padding-bottom: 30px;
+  
+  
+}
+
+.front-page-inner {
+  background-color: transparent;
+  position: absolute;
+  width:500px;
+  height: 600px;
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+.second-page-inner{
+  z-index: -1;
+  background-color: transparent;
+  position: relative;
+  width:500px;
+  height: 600px;
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+.third-page-inner{
+  z-index: -2;
+  background-color: transparent;
+  position: relative;
+  width:500px;
+  height: 600px;
+  text-align: center;
+  transform-style: preserve-3d;
+}
+
+.first-page,.second-page-back {
+
+    right:-20px;
+    position: absolute;
+    margin: 20px; /* Add margin for spacing between elements */
+    /*position: relative;*/
+    display: inline-block;
+    background-color: #edefd9; /* Light gray background  #c25f5f; */
+    border-radius: 8px;
+    width: 500px;
+    height: 600px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08); /* Soft shadow */
+    overflow: hidden; /* Ensure contents don't overflow */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    
+  }
+
+  .second-page-back {
+    background-color: #edefd9;
+    color: white;
+    width: 500px;
+    height: 600px;
+    transform: rotateY(180deg)
+  
+  }
+
+.front-page,.front-page-back {
+
+right:-20px;
+  position: absolute;
+  margin: 20px; /* Add margin for spacing between elements */
+  /*position: relative;*/
+  display: inline-block;
+  background-color: #c25f5f; /* Light gray background  #c25f5f; */
+  border-radius: 8px;
+  width: 500px;
+  height: 600px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08); /* Soft shadow */
+  overflow: hidden; /* Ensure contents don't overflow */
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  
+}
+
+.front-page-back {
+  background-color: #edefd9;
+  color: white;
+  width: 500px;
+  height: 600px;
+  transform: rotateY(180deg)
+
+}
+
+
+.front-page:before {
+  content: ''; /* Add content to create pseudo-element */
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #dc6e6e, #ea9494); /* Gradient background */
+  border-radius: 8px;
+}
+
+
+.front-page:after {
+  content: ''; /* Add content to create pseudo-element */
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  border-radius: 8px;
+  background-color: #ae4c4c; /* White background */
+  opacity: 0.7; /* Semi-transparent */
+}
+
+#title-text {
+  position: relative;
+  font-size: 80px; /* Decrease font size for better appearance */
+  color: white;
+  z-index: 5;
+  left: 15%;
+  transform: rotate(10deg); /* Rotate the text */
+  display: inline-block; /* Ensure the text is displayed inline */
+  padding: 10px 40px; /* Add padding for better spacing */
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08); /* Soft shadow */
+  font-family: letter;
+  line-height: normal;
+}
+
+#next-page{
+  z-index: 4;
+  position: relative;
+  background-color: red;
+  width: 50px;
+  height: 60px;
+  float: right;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.08); /* Soft shadow */
+}
+#next-page:hover{
+  padding: 3px;
+  background-color:rgb(231, 65, 65)
+
+}
+
+.page-one-inner{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  background-color: green;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+}
+.page-one{
+  position: relative;
+  z-index: 6;
+  padding: 100px;
+  background-color: rebeccapurple;
+  width: 100px;
+  height: 100px;
+}
+
+.cards{
+  visibility:visible;
+  flex-direction: row;
+  background-color:antiquewhite;
   display: flex;
   flex-wrap: wrap;
   align-content: flex-start;
@@ -69,21 +326,25 @@ h4 {
   margin-left:auto;
   margin-right:auto;
   width:1500px;
-  justify-content:left}
+  justify-content:left
+}
 
   body {
     font-family: Arial, Helvetica, sans-serif;
   }
 
   img{
-    background-color: transparent;
+    background-color: red;
+    object-fit:cover;
     width: 100%;
+    height: 30.8pc;
     border: 1px solid #f1f1f1;
     perspective: 1000px; /* Remove this if you don't want the 3D effect */
 
   }
   
   .flip-card {
+    margin: 3px; /* Add margin for spacing between elements */
     flex-shrink: 0;
     position: relative;
     display: inline-block;
@@ -94,18 +355,20 @@ h4 {
   }
   
   /* This container is needed to position the front and back side */
+
   .flip-card-inner {
     position: relative;
     width: 100%;
-    height: 100%;
     text-align: center;
-    transition: transform 1s;
+   /*transition: transform 1s;
+   */
    transform-style: preserve-3d;
   }
   
   /* Do an horizontal flip when you move the mouse over the flip box container */
   .flip-card:hover .flip-card-inner {
     transform: rotateY(180deg);
+    object-fit:contain;
   }
   
   /* Position the front and back side */
@@ -119,13 +382,12 @@ h4 {
   
   /* Style the front side (fallback if image is missing) */
   .flip-card-front {
-    background-color: #bbbbbb00;
     color: black;
   }
   
   /* Style the back side */
   .flip-card-back {
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0.532);
     color: white;
     transform: rotateY(180deg);
   }
@@ -136,38 +398,117 @@ h4 {
   
 h1{
   color: black;
+  font-size: 20px;
 }
+
+
 p {
     font-family: verdana;
     font-size: 20px;
   }
 
 #input-file{
-  visibility:hidden;
+  display: none;
 }
 
-#input-file-label,#submit-form{
-  background-color: antiquewhite;
-  padding: 2vh;
+#input-file-label,
+#submit-form,
+#add-pic,
+#go-back{
+  display: inline-block; /* Ensures elements are displayed inline */
+  padding: 10px 20px; /* Adjust padding for better proportion */
+  margin: 5px; /* Add margin for spacing between elements */
   border: 1px solid #bbb;
-  text-decoration: none;
+  border-radius: 4px; /* Add rounded corners */
+  background-color: rgb(207, 182, 149);
   color: white;
-  position: relative;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer; /* Change cursor on hover to indicate interactivity */
+  /*transition: background-color 0.3s, color 0.3s; /* Add smooth transition effect */
 }
 
-#input-file-label:hover, #submit-form:hover{
-background-color: rgb(154, 142, 126);
-padding: 2vh;
-border: 1px solid #bbb;
-text-decoration: none;
-color: white;
-position: relative;
-
+#go-back{
+  display: none; /* Ensures elements are displayed inline */
+  padding: 10px 20px; /* Adjust padding for better proportion */
+  margin: 5px; /* Add margin for spacing between elements */
+  border: 1px solid #bbb;
+  border-radius: 4px; /* Add rounded corners */
+  background-color: rgb(207, 182, 149);
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  cursor: pointer; /* Change cursor on hover to indicate interactivity */
+  /*transition: background-color 0.3s, color 0.3s; /* Add smooth transition effect */
 }
-#input-text{
-  position: relative;
+
+#input-file-label:hover,
+#submit-form:hover,
+#add-pic:hover,
+#go-back:hover {
+  background-color: rgb(154, 142, 126); /* Change background color on hover */
+  color: white; /* Ensure text color remains white on hover */
+}
+
+#input-text {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #555;
+  outline: none; /* Remove default outline */
 }
+#OneYear,
+#sixth-month,
+#valentines  {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 28px;
+  color: #fff; /* White color */
+  text-align: center;
+  margin-top: 50px; /* Adjust as needed */
+  background-color:rgb(55, 87, 146); /* Pink background color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+}
+
+#OneYear:hover,
+#sixth-month:hover,
+#valentines:hover  {
+
+  background-color:rgb(102, 131, 185); /* Pink background color */
+
+}
+
+#OneYear-time,
+#sixth-month-time,
+#valentines-time {
+  font-family: 'Comic Sans MS', cursive;
+  font-size: 22px;
+  color: #4b0082; /* Indigo color */
+  text-align: center;
+  margin-top: 10px; /* Adjust as needed */
+}
+
+h2 {
+  font-size: 24px;
+  font-weight:100;
+  margin-bottom: 10px;
+  line-height: 1.6;
+
+  
+}
+
+.list-main {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+

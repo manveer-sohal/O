@@ -3,11 +3,12 @@ const path = require('path');
 const multer = require('multer');
 const fs = require('fs');
 const mysql = require('mysql2')
+const sharp = require('sharp'); // Import the sharp library
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
-const upload = multer({ dest: 'uploads/' });
+const upload = multer({ storage: multer.memoryStorage() });
 app.use(express.json({limit:'1mb'}));
 
 
@@ -23,37 +24,35 @@ const pool = mysql.createPool({
 
 
 //fetches image file url from pic.html, and puts the binary into database
-app.post('/api',  upload.single('file'),  async(req,res) =>{
+app.post('/api', upload.single('file'), async(req,res) =>{
 
 
-    const filePath = req.file.path;
-    const fileData = fs.readFileSync(filePath);
+    const fileData = req.file.buffer;
     const fileText = req.body.text;
-    //puts the photo into database
-    await pool.query('INSERT INTO photos (photoName, photoText, photoData) VALUES ("pic1", ?, ?)', [fileText, fileData]);
+
    
-    //gets the data back, temp code
-    
-    try{
-    const results =  pool.query('SELECT * FROM photos WHERE photoText = ?',[fileText])
-    .then(results => {
-            if(results && results.length > 0){
-                const imageData = results[0][0].photoData.toString('base64')
-                const imageUrl = `data:image/jpeg;base64,${imageData}`;
+//compresses image to a lower quality   
+    const compressedImageData = await sharp(fileData)
+        .resize({ width: 400 }) // Resize the image if necessary
+        .jpeg({ quality: 40 }) // Set JPEG quality to 50%
+        .toBuffer();
+
+         //inserts the edited photo into the database
+         await pool.query('INSERT INTO photos (photoName, photoText, photoData) VALUES ("pic1", ?, ?)', [fileText, compressedImageData]);
+
+        // Convert compressed image data to base64
+        const compressedImageBase64 = compressedImageData.toString('base64');
+
+        // Construct the data URL with the compressed image data
+        const imageUrl = `data:image/jpeg;base64,${compressedImageBase64}`;
                 res.json({
                     url:imageUrl,
                     text:fileText
                 }
                     );
-            }
-            else {
-                console.log('No record found ');s
-            }
-        })
-        } catch (error) {
-            console.error('Error retrieving photo from database:', error);
-            res.status(500).send('Error retrieving photo from database');
-        }       
+            
+
+
    
     });
 
@@ -77,7 +76,7 @@ app.post('/api',  upload.single('file'),  async(req,res) =>{
                         imageText[i] = results[0][i].photoText;
                         imageData[i] =  results[0][i].photoData.toString('base64');
                         imageUrl[i]= `data:image/jpeg;base64,${imageData[i]}`;
-                        
+            
                     }
                 
                     res.json(
@@ -114,15 +113,17 @@ app.get('/map', (req,res)=>{
     console.log("maps");
 });
 
-//opens html to pic
+//Defines a route for GET requests to the '/pic' endpoint
 app.get('/pic', (req,res)=>{
+    //send the 'pic.html' file
     res.sendFile(`${publicPath}/pic.html`)
 });
 
-//error page if https direcotry is wrong
+
+// Middleware for handling requests to resources that are not found
 app.use((req,res)=>{
-    res.status(404);
-    res.send('<h1> Error 404: Resource Not Found :(')
+        // Set the HTTP status code to 404 (Not Found) and  simple HTML error message
+    res.status(404).send('<h1> Error 404: Resource Not Found :(')
 });
 
 

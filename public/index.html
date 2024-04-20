@@ -8,10 +8,142 @@
 
 
 </head>
-<body>
-    <h1> Happy 1 year!  </h1> 
+<body style ="background-color: black;">
+    <ul class = "buttons">
+
     <a href ="map.html" >Map</a>
     <a href ="pic.html" >Pics</a>
+    <a href ="countDown.html" >Count Down</a>
+    </ul>
+    
+
+    <h5 class = "main-page", onclick="title_click()"> Happy 1 Year!</h5>
+    <button id ="start", onclick="button_click()"> Click ME</button>
+
+    <div class = "container">
+
+
+
+        <div class= "front-page-inner"> inner
+
+            <div class = "front-page"> front
+                <h2 id = "title-text"> Happy Anniversay</h2>
+
+                <div class = "next-page-box", onclick = "next_Page()">  <h2 id = "next-page"> *</h2></div>
+
+            </div>
+
+        <div class="front-page-back">
+            back 
+        </div>
+
+        </div>
+
+
+
+        <div class= "second-page-inner"> inner
+
+            <div class = "first-page"> front
+                <h2> this is the first page</h2>
+
+                <div class = "second-page", onclick = "next_Page()">  <h2 id = "next-page"> *</h2></div>
+
+            </div>
+
+        <div class="second-page-back">
+            back
+        </div>
+        
+        </div>
+
+
+        
+        <div class= "third-page-inner"> inner
+
+            <div class = "first-page"> front
+                <h2> this is the second page</h2>
+
+
+                <div class = "next-page-box", onclick = "next_Page()">  <h2 id = "next-page"> *</h2></div>
+
+            </div>
+
+        <div class="third-page-back">
+            back 
+        </div>
+
+        </div>
+
+
+
+        
+
+
+    </div>
+    
+   
+    <script type ='text/javascript'> 
+        function title_click(){
+    
+            document.getElementById("start").style.display = "block";
+            if(document.body.style.backgroundColor == "white"){
+                document.getElementsByClassName("main-page")[0].style.color = "white";
+                title_clicked()
+            }
+        
+        }
+
+        //if the one year title is clicked, display the clikc me button
+        function title_clicked(){
+            document.getElementsByClassName("container")[0].style.display = "none"
+
+        document.getElementById("start").style.display = "block";
+        document.body.style.backgroundColor = 'black';
+        }
+
+        //if the click me button is is clicked,make the page light and change the text colour
+        function button_click(){
+            document.getElementById("start").style.display = "none";
+            document.getElementsByClassName("main-page")[0].style.color = "black";
+
+            document.body.style.backgroundColor = 'white';
+            document.getElementsByClassName("container")[0].style.display = "block"
+
+
+            window.scrollTo({
+                top: 500,
+                
+                 behavior: "smooth",
+            });
+
+
+        }
+
+        function pageFlip(){
+        
+        }
+
+
+        let flipPage = document.getElementById("next-page");
+
+        flipPage.addEventListener('click', (event) => {
+        pageFlip()
+        });
+
+
+    //if the next page button is is clicked, transform the front page to open
+    function next_Page(){
+        let inner = document.getElementsByClassName("front-page-inner")[0];
+        inner.style.transition= "transform 0.8s";
+        inner.style.transform = "translate(-250px) rotateY(180deg)";
+        let second_inner = document.getElementsByClassName("second-page-inner")[0];
+        second_inner.style.transition= "transform 0.8s";
+        second_inner.style.transform = "translate(250px)";
+    }
+   
+      // document.getElementsByClassName("container")[0].style.display = "block"
+
+        </script>
 
 </body>
 </html>
