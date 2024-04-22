@@ -4,12 +4,34 @@ const multer = require('multer');
 const fs = require('fs');
 const mysql = require('mysql2')
 const sharp = require('sharp'); // Import the sharp library
+const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3001;
 
 const upload = multer({ storage: multer.memoryStorage() });
 app.use(express.json({limit:'1mb'}));
+
+
+app.get('/check', (req,res)=>{
+    res.setHeader('Content-Type', 'application/json');
+  
+    const test = [
+        {
+            chat: "whats upf",
+        },
+        {
+            chat: "nothing much u?",
+
+        },
+        {
+            chat: "fuck u",
+
+        }
+    ]
+    // Send the JSON response
+    res.json(test);
+});
 
 
 //creats the pool connection to mysql databas
@@ -101,12 +123,12 @@ app.post('/api', upload.single('file'), async(req,res) =>{
 
 
 
-//direcotry to html 
-const publicPath = path.join(__dirname , '/public');
+//direcotry to react file
+const reactPath = path.join(__dirname, 'client', 'build');
 
 
+app.use(express.static(reactPath));
 
-app.use('/main',express.static(publicPath));
 
 //opens html to map
 app.get('/map', (req,res)=>{
